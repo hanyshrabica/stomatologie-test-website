@@ -43,14 +43,13 @@
     #cursor .dot {
       width: 8px; height: 8px; border-radius: 50%;
       background: var(--mint); transform: translate(-50%,-50%);
-      transition: transform .15s ease;
     }
     #cursor .ring {
       position: absolute; top: 0; left: 0;
       width: 36px; height: 36px; border-radius: 50%;
       border: 1.5px solid var(--mint);
       transform: translate(-50%,-50%) scale(1);
-      transition: transform .35s ease, opacity .35s ease;
+      transition: opacity .35s ease;
       opacity: .6;
     }
     body.hovering #cursor .ring { transform: translate(-50%,-50%) scale(2.2); opacity: .3; }
@@ -199,7 +198,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 2.4rem; font-weight: 300; color: var(--white); line-height: 1;
     }
-    .stat-num span { color: var(--mint); }
+    .stat-num span { color: var(--mint); font-size: 1.4rem; font-family: 'DM Sans', sans-serif; font-weight: 300; vertical-align: super; line-height: 0; }
     .stat-label { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; }
 
     @keyframes fadeUp {
@@ -474,6 +473,7 @@
       .contact-grid { grid-template-columns: 1fr; }
       .hero-stats { gap: 1.5rem; }
       .stat-num { font-size: 1.8rem; }
+      .stat-num span { font-size: 1.1rem; }
     }
     @media (max-width: 600px) {
       .services-grid { grid-template-columns: 1fr; }
@@ -586,30 +586,30 @@
         <path d="M24 8C16.3 8 10 13.5 10 21c0 4.5 1.8 8 4.5 10.5L17 44h14l2.5-12.5C36.2 29 38 25.5 38 21 38 13.5 31.7 8 24 8z"/>
         <path d="M18 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
       </svg>
-      <h3 class="service-name">Preventivní péče</h3>
-      <p class="service-desc">Pravidelné prohlídky, profesionální čištění a včasná detekce problémů. Prevence je vždy lepší než léčba.</p>
+      <h3 class="service-name">Vstupní prohlídka</h3>
+      <p class="service-desc">Základ zdravých zubů — komplexní vstupní vyšetření, díky kterému víme přesně, jak vám nejlépe pomoci.</p>
     </div>
 
     <div class="service-card reveal reveal-d1">
       <span class="service-num">02</span>
       <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="10" y="16" width="28" height="20" rx="3"/>
-        <path d="M17 16v-4a7 7 0 0114 0v4"/>
-        <circle cx="24" cy="26" r="3"/>
+        <path d="M12 36c4-4 8-6 12-6s8 2 12 6"/>
+        <path d="M10 28c2-8 6-14 14-16M38 28c-2-8-6-14-14-16"/>
+        <circle cx="24" cy="14" r="4"/>
       </svg>
-      <h3 class="service-name">Výplně a opravy</h3>
-      <p class="service-desc">Moderní kompozitní plomby v barvě zubu. Estetické opravy bez viditelných stop.</p>
+      <h3 class="service-name">Dentální hygiena</h3>
+      <p class="service-desc">Profesionální čištění zubů a prevence zubního kazu. Zdravé dásně jsou základem krásného úsměvu.</p>
     </div>
 
     <div class="service-card reveal reveal-d2">
       <span class="service-num">03</span>
       <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M16 12l4 4 12-12"/>
-        <path d="M20 20l8 20M28 20l-8 20"/>
-        <circle cx="24" cy="14" r="6"/>
+        <rect x="10" y="16" width="28" height="20" rx="3"/>
+        <path d="M17 16v-4a7 7 0 0114 0v4"/>
+        <circle cx="24" cy="26" r="3"/>
       </svg>
-      <h3 class="service-name">Extrakce zubů</h3>
-      <p class="service-desc">Bezbolestné trhání zubů včetně osmičků v klidné atmosféře. Naši pacienti se překvapivě nebojí.</p>
+      <h3 class="service-name">Záchovná stomatologie</h3>
+      <p class="service-desc">Bezbolestné ošetření zubního kazu a obnova zubu. Moderní materiály, estetický výsledek bez viditelných stop.</p>
     </div>
 
     <div class="service-card reveal reveal-d1">
@@ -619,8 +619,8 @@
         <circle cx="32" cy="26" r="8"/>
         <path d="M16 18v-6M32 18v-6M24 12h-8M24 12h8"/>
       </svg>
-      <h3 class="service-name">Dětská stomatologie</h3>
-      <p class="service-desc">Empatický přístup k malým pacientům. Učíme děti nebát se zubaře od úplného začátku.</p>
+      <h3 class="service-name">Dětská zubní péče</h3>
+      <p class="service-desc">Jemné ošetření a preventivní péče pro děti. Učíme malé pacienty, že zubař nemusí být strašák.</p>
     </div>
 
     <div class="service-card reveal reveal-d2">
@@ -630,18 +630,18 @@
         <path d="M12 28c0 6.6 5.4 12 12 12s12-5.4 12-12"/>
         <path d="M18 20l-4-8M30 20l4-8"/>
       </svg>
-      <h3 class="service-name">Ortodoncie</h3>
-      <p class="service-desc">Rovnátka a aparáty pro děti i dospělé. Krásný úsměv díky moderním ortodontickým řešením.</p>
+      <h3 class="service-name">Rovnátka a ortodoncie</h3>
+      <p class="service-desc">Narovnání zubů a korekce skusu pro děti i dospělé. Krásný a správně postavený úsměv na celý život.</p>
     </div>
 
     <div class="service-card reveal reveal-d3">
       <span class="service-num">06</span>
       <svg class="service-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M8 36h32M8 36c0-8 4-14 8-14h16c4 0 8 6 8 14"/>
-        <path d="M16 22v-4c0-4.4 3.6-8 8-8s8 3.6 8 8v4"/>
+        <path d="M20 12h8M24 12v8M16 24a8 8 0 1016 0"/>
+        <path d="M12 40h24M14 36l2-8h16l2 8"/>
       </svg>
-      <h3 class="service-name">Zubní protézy</h3>
-      <p class="service-desc">Fixní i snímatelné protézy na míru. Vrátíme vám sebevědomý úsměv a pohodlné žvýkání.</p>
+      <h3 class="service-name">Zubní implantáty</h3>
+      <p class="service-desc">Moderní náhrada chybějících zubů pomocí implantátů. Trvalé řešení, které vypadá a funguje jako přirozený zub.</p>
     </div>
   </div>
 </section>
@@ -815,7 +815,7 @@
   </div>
 
   <div style="text-align:center;margin-top:2.5rem" class="reveal">
-    <span class="google-badge">
+    <a class="google-badge" href="https://www.google.com/maps/place/Stomatologick%C3%A9+centrum+T%C5%99eb%C3%AD%C4%8D+s.r.o./@49.2234808,15.8649172,15z/data=!4m12!1m2!2m1!1zc3RvbWF0b2xvZ2llIHTFmWViw63EjQ!3m8!1s0x470d423c2d066dbb:0x4ddcc0e556b91b2!8m2!3d49.2234808!4d15.8839716!9m1!1b1!15sChZzdG9tYXRvbG9naWUgdMWZZWLDrcSNWhgiFnN0b21hdG9sb2dpZSB0xZllYsOtxI2SAQdkZW50aXN0mgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDIwMWIyTjZWWHBQUkZaRVVqTkNlbGxxV2pKVWJYQnpWRVJhVVZkSVl4QULgAQD6AQUIzwQQLw!16s%2Fg%2F12qgbcgb8?entry=ttu&g_ep=EgoyMDI2MDMzMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -823,7 +823,7 @@
         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
       </svg>
       Všechny recenze na Google Maps
-    </span>
+    </a>
   </div>
 </section>
 
@@ -861,7 +861,7 @@
         </div>
         <div>
           <div class="contact-label">Adresa</div>
-          <div class="contact-value">Masarykovo náměstí 1234<br/>674 01 Třebíč</div>
+          <div class="contact-value">Kpt. Jaroše 1123<br/>674 01 Třebíč</div>
         </div>
       </div>
 
@@ -873,7 +873,7 @@
         </div>
         <div>
           <div class="contact-label">Telefon</div>
-          <div class="contact-value"><a href="tel:+420568000000">+420 568 000 000</a></div>
+          <div class="contact-value"><a href="tel:+420776166268">+420 776 166 268</a></div>
         </div>
       </div>
 
@@ -886,7 +886,7 @@
         </div>
         <div>
           <div class="contact-label">E-mail</div>
-          <div class="contact-value"><a href="mailto:info@stomatologie-trebic.cz">info@stomatologie-trebic.cz</a></div>
+          <div class="contact-value"><a href="mailto:trebic@s-i.cz">trebic@s-i.cz</a></div>
         </div>
       </div>
 
@@ -925,8 +925,8 @@
           <circle cx="12" cy="10" r="3"/>
         </svg>
         <strong>Stomatologické centrum Třebíč</strong>
-        <p>Masarykovo náměstí 1234<br/>674 01 Třebíč</p>
-        <a href="https://maps.google.com/?q=Třebíč+stomatologie" target="_blank" rel="noopener">Otevřít v Google Maps</a>
+        <p>Kpt. Jaroše 1123<br/>674 01 Třebíč</p>
+        <a href="https://www.google.com/maps/place/Stomatologick%C3%A9+centrum+T%C5%99eb%C3%AD%C4%8D+s.r.o./@49.2234808,15.8649172,15z/data=!4m12!1m2!2m1!1zc3RvbWF0b2xvZ2llIHTFmWViw63EjQ!3m8!1s0x470d423c2d066dbb:0x4ddcc0e556b91b2!8m2!3d49.2234808!4d15.8839716!9m1!1b1!15sChZzdG9tYXRvbG9naWUgdMWZZWLDrcSNWhgiFnN0b21hdG9sb2dpZSB0xZllYsOtxI2SAQdkZW50aXN0mgFEQ2k5RFFVbFJRVU52WkVOb2RIbGpSamx2VDIwMWIyTjZWWHBQUkZaRVVqTkNlbGxxV2pKVWJYQnpWRVJhVVZkSVl4QULgAQD6AQUIzwQQLw!16s%2Fg%2F12qgbcgb8?entry=ttu&g_ep=EgoyMDI2MDMzMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Otevřít v Google Maps</a>
       </div>
     </div>
   </div>
@@ -962,8 +962,8 @@
 
   function animateCursor() {
     dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
+    rx += (mx - rx) * 0.28;
+    ry += (my - ry) * 0.28;
     ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
     requestAnimationFrame(animateCursor);
   }
