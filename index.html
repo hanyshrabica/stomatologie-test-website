@@ -470,36 +470,89 @@
     .reviews-header { text-align: center; margin-bottom: 4rem; }
     .reviews-header .section-lead { margin: 0 auto; text-align: center; }
     .stars { color: var(--gold); font-size: 1rem; letter-spacing: 2px; margin-bottom: .5rem; }
-    .reviews-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+
+    /* ── TESTIMONIAL CAROUSEL ── */
+    .tc-wrap {
+      display: flex; flex-direction: column; align-items: center; gap: 2.8rem;
+      padding: 1rem 0 3rem;
     }
-    .review-card {
+    .tc-stack {
+      position: relative;
+      width: 520px; max-width: 90vw;
+      height: 320px;
+    }
+    .tc-card {
+      position: absolute; inset: 0;
       background: var(--white);
-      padding: 2.2rem; border-radius: var(--radius);
+      border-radius: 20px;
+      padding: 2.2rem;
+      box-shadow: 0 4px 24px rgba(11,29,53,.09), 0 1px 4px rgba(11,29,53,.05);
       border-bottom: 2px solid transparent;
-      box-shadow: 0 2px 20px rgba(11,29,53,.06);
-      transition: border-color .3s, transform .3s, box-shadow .3s;
+      display: flex; flex-direction: column;
+      transform-origin: 50% 100%;
+      will-change: transform, opacity;
+      transition: transform .4s cubic-bezier(.34,1.3,.64,1), opacity .35s ease, box-shadow .3s ease;
+      touch-action: pan-y;
+      overflow: hidden;
     }
-    .review-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 8px 32px rgba(11,29,53,.12); }
-    .review-card .stars { font-size: .85rem; }
-    .review-quote {
+    .tc-card.is-dragging { transition: none; }
+    .tc-card[data-pos="0"] {
+      z-index: 3; cursor: grab;
+      border-bottom-color: var(--teal);
+      box-shadow: 0 10px 40px rgba(11,29,53,.16), 0 2px 8px rgba(11,29,53,.08);
+    }
+    .tc-card[data-pos="0"]:active { cursor: grabbing; }
+    .tc-card[data-pos="1"] { z-index: 2; transform: scale(.97) translateY(10px) rotate(-2deg); opacity: .62; }
+    .tc-card[data-pos="2"] { z-index: 1; transform: scale(.94) translateY(20px) rotate(-4deg); opacity: .32; }
+    .tc-card[data-pos="out-left"]  { z-index: 4; transform: translateX(-130%) rotate(-18deg); opacity: 0; transition: transform .35s ease, opacity .3s ease; }
+    .tc-card[data-pos="out-right"] { z-index: 4; transform: translateX(130%) rotate(18deg);  opacity: 0; transition: transform .35s ease, opacity .3s ease; }
+    .tc-card[data-pos="hidden"]    { z-index: 0; opacity: 0; pointer-events: none; }
+
+    .tc-stars { color: var(--gold); font-size: .88rem; letter-spacing: 2px; flex-shrink: 0; }
+    .tc-quote {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.08rem; line-height: 1.7; color: var(--navy);
-      font-style: italic; margin: 1rem 0 1.5rem;
+      font-size: 1.06rem; line-height: 1.72; color: var(--navy);
+      font-style: italic; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin: .8rem 0;
     }
-    .review-author {
-      display: flex; align-items: center; gap: .8rem; padding-top: 1.2rem;
-      border-top: 1px solid var(--cream);
+    .tc-author {
+      display: flex; align-items: center; gap: .85rem;
+      padding-top: 1rem; border-top: 1px solid var(--cream);
+      margin-top: auto; flex-shrink: 0;
     }
-    .review-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
+    .tc-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      object-fit: cover; flex-shrink: 0;
+      border: 2px solid rgba(126,207,191,.35);
+    }
+    .tc-avatar-fallback {
+      width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
       background: linear-gradient(135deg, var(--teal), var(--mint));
       display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif; color: var(--white); font-size: 1rem;
-      flex-shrink: 0;
+      font-family: 'Cormorant Garamond', serif; color: var(--white); font-size: 1.1rem;
     }
-    .review-name { font-size: .85rem; font-weight: 500; color: var(--navy); }
-    .review-tag { font-size: .72rem; color: var(--muted); margin-top: .15rem; }
+    .tc-name { font-size: .85rem; font-weight: 500; color: var(--navy); }
+    .tc-tag  { font-size: .7rem; color: var(--muted); margin-top: .1rem; }
+
+    .tc-controls { display: flex; align-items: center; gap: 1.6rem; }
+    .tc-arrow {
+      width: 44px; height: 44px; border-radius: 50%;
+      border: 1px solid rgba(42,123,111,.35); background: transparent;
+      color: var(--teal); display: flex; align-items: center; justify-content: center;
+      transition: background .2s, border-color .2s, color .2s; flex-shrink: 0;
+    }
+    .tc-arrow:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+    .tc-arrow svg { width: 18px; height: 18px; }
+    .tc-dots { display: flex; gap: 7px; align-items: center; }
+    .tc-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: rgba(42,123,111,.22);
+      transition: background .25s, transform .25s;
+    }
+    .tc-dot.active { background: var(--teal); transform: scale(1.4); }
+
     .google-badge {
       display: inline-flex; align-items: center; gap: .4rem;
       margin-top: 2.5rem; padding: .55rem 1.1rem;
@@ -949,77 +1002,16 @@
     </div>
   </div>
 
-  <div class="reviews-grid">
-    <div class="review-card reveal">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"Vždycky jsem měla strach ze zubařů a proto moje zuby dopadly katastrofálně. Ale po návštěvě stomatologie Třebíč jsem zjistila, že to není tak hrozné — záleží na přístupu."</p>
-      <div class="review-author">
-        <div class="review-avatar">P</div>
-        <div>
-          <div class="review-name">Pietrapierette</div>
-          <div class="review-tag">Google recenze</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card reveal reveal-d1">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"Vždy sem ráda chodím, mají skvělý přístup k lidem. Konečně se člověk nemusí bát zubaře. 😊 Registrovala jsem i děti."</p>
-      <div class="review-author">
-        <div class="review-avatar">M</div>
-        <div>
-          <div class="review-name">Marie Krivankova</div>
-          <div class="review-tag">Místní průvodce · Google</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card reveal reveal-d2">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"Dnes jsme byli na trhání zubů — s tak laskavým přístupem a odborným jednáním jsem se dlouho nesetkala. Lidský přístup, smekám! 👏"</p>
-      <div class="review-author">
-        <div class="review-avatar">I</div>
-        <div>
-          <div class="review-name">Iveta Majtánová</div>
-          <div class="review-tag">Google recenze</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card reveal reveal-d1">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"VELMI SPOKOJENÁ! MUDr. Černoch — opravdu vynikající zubní lékař a velice přívětivý!"</p>
-      <div class="review-author">
-        <div class="review-avatar">M</div>
-        <div>
-          <div class="review-name">Magda Dvořáková</div>
-          <div class="review-tag">Google recenze</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card reveal reveal-d2">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"Více než rok navštěvuji Stomatologické centrum v Třebíči a mám ty nejlepší zkušenosti. Jsem rád, že jsem našel skvělé zubaře. Doporučuji."</p>
-      <div class="review-author">
-        <div class="review-avatar">J</div>
-        <div>
-          <div class="review-name">Jan Schindler</div>
-          <div class="review-tag">Google recenze</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="review-card reveal reveal-d3">
-      <div class="stars">★★★★★</div>
-      <p class="review-quote">"Navštěvujeme zdejší centrum s dětmi a jsme nadšení! Ochotný a milý personál, skvělá a empatická lékařka — splněný sen pro dětské zoubky!"</p>
-      <div class="review-author">
-        <div class="review-avatar">D</div>
-        <div>
-          <div class="review-name">Dana Posádová</div>
-          <div class="review-tag">Google recenze</div>
-        </div>
-      </div>
+  <div class="tc-wrap reveal">
+    <div class="tc-stack" id="tc-stack"></div>
+    <div class="tc-controls">
+      <button class="tc-arrow" id="tc-prev" aria-label="Předchozí">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="tc-dots" id="tc-dots"></div>
+      <button class="tc-arrow" id="tc-next" aria-label="Další">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
   </div>
 
@@ -1182,6 +1174,120 @@
     window.addEventListener('scroll', update, { passive: true });
   })();
 
+  /* ── Testimonial carousel ── */
+  (function() {
+    const reviews = [
+      { name: 'Pietrapierette',   tag: 'Google recenze',           avatar: 'https://randomuser.me/api/portraits/women/12.jpg', initial: 'P', quote: '"Vždycky jsem měla strach ze zubařů a proto moje zuby dopadly katastrofálně. Ale po návštěvě stomatologie Třebíč jsem zjistila, že to není tak hrozné — záleží na přístupu."' },
+      { name: 'Marie Krivankova', tag: 'Místní průvodce · Google', avatar: 'https://randomuser.me/api/portraits/women/22.jpg', initial: 'M', quote: '"Vždy sem ráda chodím, mají skvělý přístup k lidem. Konečně se člověk nemusí bát zubaře. Registrovala jsem i děti."' },
+      { name: 'Iveta Majtánová',  tag: 'Google recenze',           avatar: 'https://randomuser.me/api/portraits/women/45.jpg', initial: 'I', quote: '"Dnes jsme byli na trhání zubů — s tak laskavým přístupem a odborným jednáním jsem se dlouho nesetkala. Lidský přístup, smekám!"' },
+      { name: 'Magda Dvořáková',  tag: 'Google recenze',           avatar: 'https://randomuser.me/api/portraits/women/33.jpg', initial: 'M', quote: '"VELMI SPOKOJENÁ! MUDr. Černoch — opravdu vynikající zubní lékař a velice přívětivý!"' },
+      { name: 'Jan Schindler',    tag: 'Google recenze',           avatar: 'https://randomuser.me/api/portraits/men/15.jpg',   initial: 'J', quote: '"Více než rok navštěvuji Stomatologické centrum v Třebíči a mám ty nejlepší zkušenosti. Jsem rád, že jsem našel skvělé zubaře. Doporučuji."' },
+      { name: 'Dana Posádová',    tag: 'Google recenze',           avatar: 'https://randomuser.me/api/portraits/women/68.jpg', initial: 'D', quote: '"Navštěvujeme zdejší centrum s dětmi a jsme nadšení! Ochotný a milý personál, skvělá a empatická lékařka — splněný sen pro dětské zoubky!"' },
+    ];
+
+    const stack  = document.getElementById('tc-stack');
+    const dotsEl = document.getElementById('tc-dots');
+    const btnPrev = document.getElementById('tc-prev');
+    const btnNext = document.getElementById('tc-next');
+    if (!stack) return;
+
+    let current = 0;
+    const total = reviews.length;
+
+    // Build cards
+    const cards = reviews.map((r, i) => {
+      const el = document.createElement('div');
+      el.className = 'tc-card';
+      el.innerHTML = `
+        <div class="tc-stars">★★★★★</div>
+        <p class="tc-quote">${r.quote}</p>
+        <div class="tc-author">
+          <img class="tc-avatar" src="${r.avatar}" alt="${r.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="tc-avatar-fallback" style="display:none">${r.initial}</div>
+          <div>
+            <div class="tc-name">${r.name}</div>
+            <div class="tc-tag">${r.tag}</div>
+          </div>
+        </div>`;
+      stack.appendChild(el);
+      return el;
+    });
+
+    // Build dots
+    const dots = reviews.map((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'tc-dot';
+      dotsEl.appendChild(d);
+      return d;
+    });
+
+    function posOf(i) {
+      const diff = ((i - current) % total + total) % total;
+      if (diff === 0) return '0';
+      if (diff === 1) return '1';
+      if (diff === 2) return '2';
+      return 'hidden';
+    }
+
+    function render() {
+      cards.forEach((c, i) => c.dataset.pos = posOf(i));
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    function advance(dir) {
+      const cur = cards[current];
+      cur.classList.remove('is-dragging');
+      cur.dataset.pos = dir > 0 ? 'out-left' : 'out-right';
+      current = ((current + dir) % total + total) % total;
+      setTimeout(() => {
+        cur.dataset.pos = 'hidden';
+        render();
+      }, 360);
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      cards.forEach((c, i) => { if (i !== ((current - dir + total) % total)) c.dataset.pos = posOf(i); });
+    }
+
+    // Drag logic
+    let startX = 0, dragX = 0, dragging = false;
+
+    function onStart(e) {
+      if (cards[current].dataset.pos !== '0') return;
+      startX = e.touches ? e.touches[0].clientX : e.clientX;
+      dragging = true;
+      cards[current].classList.add('is-dragging');
+    }
+    function onMove(e) {
+      if (!dragging) return;
+      dragX = (e.touches ? e.touches[0].clientX : e.clientX) - startX;
+      const rotate = dragX / 18;
+      cards[current].style.transform = `translateX(${dragX}px) rotate(${rotate}deg)`;
+    }
+    function onEnd() {
+      if (!dragging) return;
+      dragging = false;
+      const cur = cards[current];
+      cur.classList.remove('is-dragging');
+      if (Math.abs(dragX) > 90) {
+        advance(dragX < 0 ? 1 : -1);
+      } else {
+        cur.style.transform = '';
+      }
+      dragX = 0;
+    }
+
+    stack.addEventListener('mousedown',  onStart);
+    stack.addEventListener('touchstart', onStart, { passive: true });
+    window.addEventListener('mousemove',  onMove);
+    window.addEventListener('touchmove',  onMove, { passive: true });
+    window.addEventListener('mouseup',   onEnd);
+    window.addEventListener('touchend',  onEnd);
+
+    btnNext.addEventListener('click', () => advance(1));
+    btnPrev.addEventListener('click', () => advance(-1));
+
+    render();
+  })();
+
   /* ── Sliding pill nav ── */
   (function() {
     const navLinks = document.getElementById('nav-links');
@@ -1298,7 +1404,7 @@
   }
   animateCursor();
 
-  document.querySelectorAll('a, button, .service-card, .review-card, .why-feature').forEach(el => {
+  document.querySelectorAll('a, button, .service-card, .tc-card, .why-feature').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
   });
